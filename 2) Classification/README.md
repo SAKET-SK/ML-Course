@@ -218,3 +218,160 @@ print(y[:5])
 # [0 1 1 1 0]
 ```
 The predict method returns an array of 1’s and 0’s, where 1 means the model predicts the passenger survived and 0 means the model predicts the passenger didn’t survive.
+
+
+Score the Model
+We can get a sense of how good our model is by counting the number of datapoints it predicts correctly. This is called the accuracy score.
+
+Let’s create an array that has the predicted y values.
+```
+y_pred = model.predict(X)
+```
+Now we create an array of boolean values of whether or not our model predicted each passenger correctly.
+```
+y == y_pred
+```
+To get the number of these that are true, we can use the numpy sum method.
+```
+print((y == y_pred).sum())
+# 714
+```
+This means that of the 887 datapoints, the model makes the correct prediction for 714 of them.
+
+To get the percent correct, we divide this by the total number of passengers. We get the total number of passengers using the shape attribute.
+```
+y.shape[0]
+```
+Thus our accuracy score is computed as follows.
+```
+print((y == y_pred).sum() / y.shape[0])
+# 0.8038331454340474
+```
+Thus the model’s accuracy is 80%. In other words, the model makes the correct prediction on 80% of the datapoints.
+
+This is a common enough calculation, that sklearn has already implemented it for us. So we can get the same result by using the score method. The score method uses the model to make a prediction for X and counts what percent of them match y.
+
+```
+print(model.score(X, y))
+# 0.8038331454340474
+```
+With this alternative method of calculating accuracy, we get the same value, 80%.
+We’ll see in the next module that there’s a lot more to evaluating a model.
+
+
+
+Introducing the Breast Cancer Dataset
+
+
+Now that we’ve built up the tools to build a Logistic Regression model for a classification dataset, we’ll introduce a new dataset.
+
+In the breast cancer dataset, each datapoint has measurements from an image of a breast mass and whether or not it’s cancerous. The goal will be to use these measurements to predict if the mass is cancerous.
+
+This dataset is built right into scikit-learn so we won’t need to read in a csv.
+
+Let’s start by loading the dataset and taking a peak at the data and how it’s formatted.
+
+```
+from sklearn.datasets import load_breast_cancer
+cancer_data = load_breast_cancer()
+```
+The object returned (which we stored in the cancer_data variable) is an object similar to a Python dictionary. We can see the available keys with the keys method.
+```
+print(cancer_data.keys())
+```
+We’ll start by looking at DESCR, which gives a detailed description of the dataset.
+```
+print(cancer_data['DESCR'])
+```
+We can see there are 30 features, 569 datapoints, and target is either Malignant (cancerous) or Benign (not cancerous). For each of the datapoints we have measurements of the breast mass (radius, texture, perimeter, etc.). For each of the 10 measurements, multiple values were computed, so we have the mean, standard error and the worst value. This results in 10 * 3 or 30 total features.
+In the breast cancer dataset, there are several features that are calculated based on other columns. The process of figuring out what additional features to calculate is feature engineering.
+
+
+
+
+
+Loading the Data into Pandas
+
+
+Let’s pull the feature and target data out of the cancer_data object.
+
+First, the feature data is stored with the 'data' key. When we look at it, we see that it’s a numpy array with 569 rows and 30 columns. That’s because we have 569 datapoints and 30 features.
+
+The following is a numpy array of the data.
+```
+cancer_data['data']
+```
+We use the shape to see that it is an array with 569 rows and 30 columns.
+```
+cancer_data['data'].shape
+```
+In order to put this in a Pandas DataFrame and make it more human readable, we want the column names. These are stored with the 'feature_names' key.
+```
+cancer_data['feature_names']
+```
+Now we can create a Pandas DataFrame with all our feature data.
+```
+import pandas as pd
+from sklearn.datasets import load_breast_cancer
+
+cancer_data = load_breast_cancer()
+
+df = pd.DataFrame(cancer_data['data'], columns=cancer_data['feature_names'])
+print(df.head())
+```
+We can see that we have 30 columns in the DataFrame, since we have 30 features. The output is truncated so that it’ll fit on the screen. We used the head method, so our result only has 5 datapoints.
+
+We still need to put the target data in our DataFrame, which can be found with the 'target' key. We can see that the target is a 1-dimensional numpy array of 1’s and 0’s.
+```
+cancer_data['target']
+```
+If we look at the shape of the array, we see that it’s a 1-dimensional array with 569 values (which was how many datapoints we had).
+
+```
+cancer_data['target'].shape
+```
+In order to interpret these 1’s and 0’s, we need to know whether 1 or 0 is benign or malignant. This is given by the target_names
+```
+cancer_data['target_name']
+```
+This gives the array ['malignant' 'benign'] which tells us that 0 means malignant and 1 means benign. Let’s add this data to the Pandas DataFrame.
+```
+df['target'] = cancer_data['target']
+df.head()
+```
+It’s important to double check that you are interpreting boolean columns correctly. In our case a target of 0 means malignant and 1 means benign.
+
+
+
+
+Build a Logistic Regression Model
+
+
+Now that we’ve taken a look at our data and gotten it into a comfortable format, we can build our feature matrix X and target array y so that we can build a Logistic Regression model.
+
+```
+X = df[cancer_data.feature_names].values
+y = df['target'].values
+```
+Now we create a Logistic Regression object and use the fit method to build the model.
+```
+model = LogisticRegression()
+model.fit(X, y)
+```
+When we run this code we get a Convergence Warning. This means that the model needs more time to find the optimal solution. One option is to increase the number of iterations. You can also switch to a different solver, which is what we will do. The solver is the algorithm that the model uses to find the equation of the line. You can see the possible solvers in the Logistic Regression documentation
+```
+model = LogisticRegression(solver='liblinear')
+model.fit(X, y) 
+```
+Let’s see what the model predicts for the first datapoint in our dataset. Recall that the predict method takes a 2-dimensional array so we must put the datapoint in a list.
+```
+model.predict([X[0]])
+```
+So the model predicts that the first datapoint is benign.
+
+To see how well the model performs over the whole dataset, we use the score method to see the accuracy of the model.
+```
+model.score(X, y)
+```
+We see that the model gets 96% of the datapoints correct.
+With the tools we’ve developed, we can build a model for any classification dataset.
