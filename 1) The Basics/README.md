@@ -182,3 +182,11 @@ Recall the syntax for selecting the Sex column:
 ```
 df['Sex']
 ```
+Now we want to create a column with this result. To create a new column, we use the same bracket syntax 
+```
+(df['male'])
+```
+and then assign this new value to it.
+```
+df['male'] = df['Sex'] == 'male'
+```
