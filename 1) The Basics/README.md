@@ -256,3 +256,25 @@ If we look at the shape, we get the number of rows and the number of columns:
 print(arr.shape) #(887, 3)
 ```
 This result means we have 887 rows and 3 columns.
+
+
+Select from a Numpy Array
+Let's assume we have created the following numpy array:
+```
+arr = df[['Pclass', 'Fare', 'Age']].values
+```
+We can select a single element from a numpy array with the following:
+```
+arr[0, 1]
+```
+This will be the 2nd column of the 1st row (remember that we start counting at 0).
+So it'll be the Fare of the 1st passenger, or 7.25.
+
+We can also select a single row, for example, the whole row of the first passenger:
+```
+print(arr[0])
+```
+To select a single column (in this case the Age column), we have to use some special syntax:
+```
+print(arr[:,2])
+```
