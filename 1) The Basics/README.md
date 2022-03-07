@@ -97,3 +97,4 @@ data = [15, 16, 18, 19, 22, 24, 29, 30, 34]
 ```
 Now we can use the numpy functions. For the mean, median, standard deviation and variance functions, we just pass in the data list. For the percentile function we pass the data list and the percentile (as a number between 0 and 100).
 
+Numpy is a python library that allows fast and easy mathematical operations to be performed on arrays.
