@@ -132,3 +132,13 @@ The head method returns the first 5 rows of the DataFrame.
 ```
 print(df.head())
 ```
+
+Summarize the Data
+
+Usually our data is much too big for us to be able to display it all.
+Looking at the first few rows is the first step to understanding our data, but then we want to look at some summary statistics.
+In pandas, we can use the describe method. It returns a table of statistics about the columns.
+
+```
+print(df.describe())
+```
