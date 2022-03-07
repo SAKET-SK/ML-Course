@@ -98,3 +98,37 @@ data = [15, 16, 18, 19, 22, 24, 29, 30, 34]
 Now we can use the numpy functions. For the mean, median, standard deviation and variance functions, we just pass in the data list. For the percentile function we pass the data list and the percentile (as a number between 0 and 100).
 
 Numpy is a python library that allows fast and easy mathematical operations to be performed on arrays.
+
+This course is in Python, one of the most commonly used languages for machine learning.
+
+One of the reasons it is so popular is that there are numerous helpful python modules for working with data. The first we will be introducing is called Pandas.
+Pandas is a Python module that helps us read and manipulate data. What's cool about pandas is that you can take in data and view it as a table that's human readable, but it can also be interpreted numerically so that you can do lots of computations with it.
+
+We call the table of data a DataFrame.
+Python will satisfy all of our Machine Learning needs. We’ll use the Pandas module for data manipulation.
+
+Read in Your Data
+
+We need to start by importing Pandas. It's standard practice to nickname it pd so that it's faster to type later on.
+```
+import pandas as pd 
+```
+We will be working with a dataset of Titanic passengers. For each passenger, we’ll have some data on them as well as whether or not they survived the crash.
+
+Our data is stored as CSV (comma-separated values) file. The titanic.csv file is below. The first line is the header and then each subsequent line is the data for a single passenger.
+Survived, Pclass, Sex, Age, Siblings/Spouses, Parents/Children, Fare
+0, 3, male, 22.0, 1, 0, 7.25
+1, 1, female, 38.0, 1, 0, 71.2833
+1, 3, female, 26.0, 0, 0, 7.925
+1, 1, female, 35.0, 1, 0, 53.1
+We're going to pull the data into pandas so we can view it as a DataFrame.
+
+The read_csv function takes a file in csv format and converts it to a Pandas DataFrame.
+```
+df = pd.read_csv('titanic.csv')
+```
+The object df is now our pandas dataframe with the Titanic dataset. Now we can use the head method to look at the data.
+The head method returns the first 5 rows of the DataFrame.
+```
+print(df.head())
+```
