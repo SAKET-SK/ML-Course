@@ -278,3 +278,60 @@ To select a single column (in this case the Age column), we have to use some spe
 ```
 print(arr[:,2])
 ```
+
+Masking
+
+
+Often times you want to select all the rows that meet a certain criteria.
+
+In this example, we'll select all the rows of children (passengers under the age of 18). A reminder of our definition of the array:
+```
+arr = df[['Pclass', 'Fare', 'Age']].values
+```
+Recall that we can get the Age column with the following syntax:
+```
+arr[:, 2]
+```
+We create what we call a mask first. This is an array of boolean values (True/False) of whether the passenger is a child or not.
+```
+mask = arr[:, 2] < 18
+```
+Let's look at the mask array to make sure we understand it.
+```
+array([False, False, False, False, False, False, False, True, False, …
+```
+The False values mean adult and the True values mean child, so the first 7 passengers are adults, then 8th is a child, and the 9th is an adult.
+Now we use our mask to select just the rows we care about:
+```
+arr[mask]
+```
+Let's look at this new array.
+```
+array([[3., 21.075, 2.],
+       [2., 30.0708, 14.],
+       [3., 16.7, 4.],
+       [3., 7.8542, 14.],
+```
+If we recall that the third column is the passengers age, we see that all the rows here are for passengers that are children.
+
+Generally, we don't need to define the mask variable and can do the above in just a single line:
+```
+arr[arr[:, 2] < 18] 
+```
+A mask is a boolean array (True/False values) that tells us which values from the array we’re interested in.
+
+Summing and Counting
+Let’s say we want to know how many of our passengers are children. We still have the same array definition and can take our mask or boolean values from the previous part.
+```
+arr = df[['Pclass', 'Fare', 'Age']].values
+mask = arr[:, 2] < 18
+```
+Recall that True values are interpreted as 1 and False values are interpreted as 0. So we can just sum up the array and that’s equivalent to counting the number of true values.
+```
+print(mask.sum()) 
+```
+Again, we don’t need to define the mask variable.
+```
+print((arr[:, 2] < 18).sum())
+```
+Summing an array of boolean values gives the count of the number of True values.
