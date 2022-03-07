@@ -190,3 +190,54 @@ and then assign this new value to it.
 ```
 df['male'] = df['Sex'] == 'male'
 ```
+What is Numpy?
+
+
+Numpy is a Python package for manipulating lists and tables of numerical data. We can use it to do a lot of statistical calculations. We call the list or table of data a numpy array.
+
+We often will take the data from our pandas DataFrame and put it in numpy arrays. Pandas DataFrames are great because we have the column names and other text data that makes it human readable. A DataFrame, while easy for a human to read, is not the ideal format for doing calculations. The numpy arrays are generally less human readable, but are in a format that enables the necessary computation.
+Numpy is a Python module for doing calculations on tables of data. Pandas was actually built using Numpy as it’s foundation.
+Converting from a Pandas Series to a Numpy Array
+
+
+We often start with our data in a Pandas DataFrame, but then want to convert it to a numpy array. The values attribute does this for us.
+
+Let's convert the Fare column to a numpy array.
+
+First we recall that we can use the single bracket notation to get a pandas Series of the Fare column as follows.
+```
+df['Fare']
+```
+Then we use the values attribute to get the values as a numpy array.
+```
+df['Fare'].values
+```
+This is what the above array looks like:
+```
+array([ 7.25 , 71.2833,  7.925, 53.1, 8.05, 8.4583, …
+```
+The result is a 1-dimensional array. You can tell since there's only one set of brackets and it only expands across the page (not down as well).
+Converting from a Pandas DataFrame to a Numpy Array
+
+
+If we have a pandas DataFrame (instead of a Series as in the last part), we can still use the values attribute, but it returns a 2-dimensional numpy array.
+
+Recall that we can create a smaller pandas DataFrame with the following syntax.
+```
+df[['Pclass', 'Fare', 'Age']]
+```
+Again, we apply the values attribute to get a numpy array.
+```
+df[['Pclass', 'Fare', 'Age']].values 
+```
+This is what the above array looks like:
+```
+array([[ 3.    ,  7.25  , 22.    ],
+       [ 1.    , 71.2833, 38.    ],
+       [ 3.    ,  7.925 , 26.    ],
+                    ...           ,
+       [ 3.    , 23.45  ,  7.    ],
+       [ 1.    , 30.    , 26.    ],
+       [ 3.    ,  7.75  , 32.    ]])
+ ```
+This is a 2-dimensional numpy array. You can tell because there’s two sets of brackets, and it expands both across the page and down.
