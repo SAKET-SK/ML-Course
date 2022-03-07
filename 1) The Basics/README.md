@@ -142,3 +142,14 @@ In pandas, we can use the describe method. It returns a table of statistics abou
 ```
 print(df.describe())
 ```
+
+Selecting a Single Column
+
+
+We often will only want to deal with some of the columns that we have in our dataset. To select a single column, we use the square brackets and the column name.
+```
+col = df['Fare']
+print(col)
+```
+The result is what we call a Pandas Series. A Pandas Series is a single column from a Pandas DataFrame.
+A series is like a DataFrame, but it's just a single column.
