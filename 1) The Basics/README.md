@@ -153,3 +153,32 @@ print(col)
 ```
 The result is what we call a Pandas Series. A Pandas Series is a single column from a Pandas DataFrame.
 A series is like a DataFrame, but it's just a single column.
+
+Selecting Multiple Columns
+
+
+We can also select multiple columns from our original DataFrame, creating a smaller DataFrame.
+We're going to select just the Age, Sex, and Survived columns from our original DataFrame.
+
+We put these values in a list as follows:
+```
+['Age', 'Sex', 'Survived']
+```
+Now we use that list inside of the bracket notation df[...] When printing a large DataFrame that’s too big to display, you can use the head method to print just the first 5 rows.
+```
+small_df = df[['Age', 'Sex', 'Survived']]
+print(small_df.head()) 
+```
+When selecting a single column from a Pandas DataFrame, we use single square brackets. When selecting multiple columns, we use double square brackets.
+
+Creating a Column
+
+
+We often want our data in a slightly different format than it originally comes in. For example, our data has the sex of the passenger as a string ("male" or "female"). This is easy for a human to read, but when we do computations on our data later on, we’ll want it as boolean values (Trues and Falses).
+
+We can easily create a new column in our DataFrame that is True if the passenger is male and False if they’re female.
+
+Recall the syntax for selecting the Sex column:
+```
+df['Sex']
+```
