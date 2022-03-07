@@ -185,3 +185,36 @@ These values mean that the equation is as follows:
 0 = 0.0161594x + -0.01549065y + -0.51037152
 Here’s the line drawn on the graph. You can see it does a decent (but not great) job of splitting the yellow and purple points. We’ve handicapped ourselves a bit by only using 2 of our features, so in the next parts we’ll use all of the features.contentImage
 It can be hard to remember the import statements for the different sklearn models. If you can’t remember, just look at the scikit-learn documentation.
+
+Make Predictions with the Model
+We really handicapped our model by only using two of the features in the previous parts, so let’s rebuild the model with all of them.
+```
+X = df[['Pclass', 'male', 'Age', 'Siblings/Spouses', 'Parents/Children', 'Fare']].values
+y = df['Survived'].values
+model = LogisticRegression()
+model.fit(X, y)
+```
+Now we can use the predict method to make predictions.
+```
+model.predict(X)
+```
+The first passenger in the dataset is:
+```
+[3, True, 22.0, 1, 0, 7.25]
+```
+This means the passenger is in Pclass 3, are male, are 22 years old, have 1 sibling/spouse aboard, 0 parents/child aboard, and paid $7.25. Let’s see what the model predicts for this passenger. Note that even with one datapoint, the predict method takes a 2-dimensional numpy array and returns a 1-dimensional numpy array.
+```
+print(model.predict([[3, True, 22.0, 1, 0, 7.25]])) 
+# [0]
+```
+The result is 0, which means the model predicts that this passenger did not survive.
+
+Let’s see what the model predicts for the first 5 rows of data and compare it to our target array. We get the first 5 rows of data with X[:5] and the first 5 values of the target with y[:5].
+
+```
+print(model.predict(X[:5])) 
+# [0 1 1 1 0]
+print(y[:5]) 
+# [0 1 1 1 0]
+```
+The predict method returns an array of 1’s and 0’s, where 1 means the model predicts the passenger survived and 0 means the model predicts the passenger didn’t survive.
