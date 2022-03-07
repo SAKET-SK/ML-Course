@@ -241,3 +241,18 @@ array([[ 3.    ,  7.25  , 22.    ],
        [ 3.    ,  7.75  , 32.    ]])
  ```
 This is a 2-dimensional numpy array. You can tell because there’s two sets of brackets, and it expands both across the page and down.
+
+Numpy Shape Attribute
+
+
+We use the numpy shape attribute to determine the size of our numpy array. The size tells us how many rows and columns are in our data.
+
+First, let's create a numpy array with the Pclass, Fare, and Age.
+```
+arr = df[['Pclass', 'Fare', 'Age']].values
+```
+If we look at the shape, we get the number of rows and the number of columns:
+```
+print(arr.shape) #(887, 3)
+```
+This result means we have 887 rows and 3 columns.
